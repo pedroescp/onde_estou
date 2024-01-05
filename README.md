@@ -44,3 +44,40 @@ docker network create onde_estou_net_work
 docker network connect onde_estou_network onde_estou_app
 docker network connect onde_estou_network onde_estou_db
 ```
+
+
+
+user
+
+    id (pk)
+    name (string)
+    email->unique();
+    email_verified_at->nullable();
+    password (string);
+
+empresa
+    id (pk)
+    nome da empresa (string, 100 caracteres)
+    filial (not-null, int, caso seja a empresa matriz ele vai 0, caso seja filial ele vai o id da matriz)
+setor
+    id (pk)
+    nome (string 100 caracteres)
+    empresa.id (fk)
+
+onde estou
+    user.id (fk)
+    empresa.id (fk)
+    setor.id (fk)
+    data hora (date time)
+    previsao de retorno (date time)
+
+
+
+php artisan make:migration sectors
+php artisan make:migration companies
+php artisan make:migration where_am_i
+
+
+Criar rotas + logicas
+
+
