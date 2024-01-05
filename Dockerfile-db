@@ -1,0 +1,7 @@
+FROM postgres:latest
+
+ENV POSTGRES_USER admin
+ENV POSTGRES_PASSWORD aB7tR#kL*2qP!9oZ5xY%3wFv&1sC@d8E6uG4iH0nM+pX
+ENV POSTGRES_DB onde_estou
+
+EXPOSE 5432
