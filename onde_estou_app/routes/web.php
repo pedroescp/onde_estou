@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\companiesController;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\sectorsController;
 use App\Http\Controllers\whereamiController;
@@ -20,9 +19,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     //companies
-    Route::get('/companies', [companiesController::class, 'companies']);
+    Route::prefix('companies')->group(function () {
+        Route::get('/', [companiesController::class, 'index'])->name('companies');
+        Route::post('/store', [companiesController::class, 'store'])->name('companies.store');
+        Route::get('/create', [companiesController::class, 'create'])->name('companies.create');
+        Route::get('/list', [companiesController::class, 'list'])->name('companies.list');
+        Route::get('/show/{id}', [companiesController::class, 'show'])->name('companies.show');
+    });
 
     Route::get('/sectors', [sectorsController::class, 'sectors']);
 

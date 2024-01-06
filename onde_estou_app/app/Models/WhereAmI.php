@@ -20,7 +20,7 @@ class WhereAmI extends Authenticatable
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Companies::class);
     }
 
     public function sector()

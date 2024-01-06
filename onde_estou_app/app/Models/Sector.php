@@ -17,6 +17,6 @@ class Sector extends Authenticatable
     // Relacionamento com a tabela companies
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Companies::class);
     }
 }
