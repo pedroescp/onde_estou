@@ -18,7 +18,12 @@
                                     <td>{{ $companie->id }}</td>
                                     <td>{{ $companie->name }}</td>
                                     <td>{{ $companie->created_at }}</td>
-                                    <td> <a href="{{ route('companies.show', $companie->id) }}">Consultar</a> </td>
+                                    <td>
+                                        <a href="{{ route('companies.show', $companie->id) }}">Consultar</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('companies.edit', $companie->id) }}">Editar</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

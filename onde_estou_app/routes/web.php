@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [companiesController::class, 'create'])->name('companies.create');
         Route::get('/list', [companiesController::class, 'list'])->name('companies.list');
         Route::get('/show/{id}', [companiesController::class, 'show'])->name('companies.show');
+        Route::get('/edit/{id}', [companiesController::class, 'edit'])->name('companies.edit');
+        Route::put('/update/{id}', [companiesController::class, 'update'])->name('companies.update');
     });
 
     Route::get('/sectors', [sectorsController::class, 'sectors']);

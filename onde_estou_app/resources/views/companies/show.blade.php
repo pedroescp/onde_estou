@@ -10,6 +10,8 @@
                         <header>
                             Nome da empresa: {{ $companie->name}}
                             Id {{ $companie->id }}
+
+                            <a href="{{ route('companies.edit', $companie->id) }}">Editar</a>
                         </header>
                     </section>
                 </div>
