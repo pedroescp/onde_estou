@@ -36,4 +36,26 @@ class companiesController extends Controller
 
         return view('/companies/show', compact('companie'));
     }
+
+    public function edit(Companies $companie, string|int $id)
+    {
+        if (!$companie = Companies::find($id)) {
+            return redirect()->back();
+        }
+
+        return view('/companies/edit', compact('companie'));
+    }
+
+    public function update(Request $request, Companies $companie, string|int $id)
+    {
+        if (!$companie = Companies::find($id)) {
+            return redirect()->back();
+        }
+
+        $companie->update($request->only([
+            'name'
+        ]));
+
+        return redirect()->route('companies');
+    }
 }
