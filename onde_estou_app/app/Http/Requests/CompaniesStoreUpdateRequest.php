@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CompaniesStoreUpdateRequest extends FormRequest
 {
@@ -23,7 +24,7 @@ class CompaniesStoreUpdateRequest extends FormRequest
     {
         return [
             'name' => 'string|max:100|required|min:5|unique:companies',
-            'parent_id' => 'nullable|integer',
+            'parent_id' => 'nullable|int',
         ];
     }
 }

@@ -28,9 +28,7 @@ class companiesController extends Controller
 
     public function store(CompaniesStoreUpdateRequest $request)
     {
-        $this->service->create(
-            CreateCompaniesDTO::makeFromRequest($request)
-        );
+        $this->service->create(CreateCompaniesDTO::makeFromRequest($request));
 
         return redirect('/companies');
     }
@@ -49,7 +47,7 @@ class companiesController extends Controller
         return view('/companies/edit', compact('companie'));
     }
 
-    public function update(CompaniesStoreUpdateRequest $request, string|int $id)
+    public function update(CompaniesStoreUpdateRequest $request)
     {
         $companie = $this->service->update(UpdateCompaniesDTO::makeFromRequest($request));
 
