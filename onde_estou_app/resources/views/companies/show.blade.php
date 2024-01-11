@@ -8,10 +8,24 @@
 
                     <section>
                         <header>
-                            Nome da empresa: {{ $companie->name}}
+                            Nome da empresa: {{ $companie->name }}
                             Id {{ $companie->id }}
 
-                            <a href="{{ route('companies.edit', $companie->id) }}">Editar</a>
+                            <x-primary-button>
+                                <a href="{{ route('companies.edit', $companie->id) }}">Editar</a>
+                            </x-primary-button>
+                            
+
+
+                            <form action="{{ route('companies.delete', $companie->id) }}" method="post">
+                                @csrf()
+                                @method('DELETE')
+                                <button type="submit">
+                                    Deletar
+                                </button>
+
+                            </form>
+
                         </header>
                     </section>
                 </div>

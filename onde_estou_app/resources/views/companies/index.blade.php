@@ -19,10 +19,19 @@
                                     <td>{{ $companie->name }}</td>
                                     <td>{{ $companie->created_at }}</td>
                                     <td>
-                                        <a href="{{ route('companies.show', $companie->id) }}">Consultar</a>
+                                        <x-primary-button> 
+                                            <a href="{{ route('companies.show', $companie->id) }}">Detalhar</a>
+                                        </x-primary-button>
                                     </td>
                                     <td>
-                                        <a href="{{ route('companies.edit', $companie->id) }}">Editar</a>
+                                        <x-primary-button> 
+                                            <a href="{{ route('companies.edit', $companie->id) }}">Editar</a>
+                                        </x-primary-button>
+                                    </td>
+                                    <td>
+                                        <x-danger-button> 
+                                            <a href="{{ route('companies.delete', $companie->id) }}">Deltar</a>
+                                        </x-danger-button>
                                     </td>
                                 </tr>
                             @endforeach
