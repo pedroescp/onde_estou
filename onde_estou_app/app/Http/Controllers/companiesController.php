@@ -2,59 +2,65 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\CreateCompaniesDTO;
+use App\DTO\UpdateCompaniesDTO;
+use App\Http\Requests\CompaniesStoreUpdateRequest;
 use App\Models\Companies;
+use App\Services\CompaniesService;
 use Illuminate\Http\Request;
 
 class companiesController extends Controller
 {
-    public function index(Companies $companies)
+    public function __construct(protected CompaniesService $service)
     {
-        $companies = $companies->all();
+    }
+
+    public function index(Request $request)
+    {
+        $companies = $this->service->getAll($request->filter);
         return view('companies/index', compact('companies'));
     }
 
-    public function create(Companies $companies)
+    public function create(Request $request)
     {
         return view('companies/create');
     }
 
-    public function store(Request $request)
+    public function store(CompaniesStoreUpdateRequest $request)
     {
-        Companies::create([
-            'name' => $request->name,
-            'parent_id' => null,
-        ]);
+        $this->service->create(
+            CreateCompaniesDTO::makeFromRequest($request)
+        );
 
         return redirect('/companies');
     }
 
     public function show(string|int $id)
     {
-        if (!$companie = Companies::find($id)) {
-            return redirect()->back();
-        }
+        if (!$companie = $this->service->findOne($id)) return redirect()->back();
 
         return view('/companies/show', compact('companie'));
     }
 
     public function edit(Companies $companie, string|int $id)
     {
-        if (!$companie = Companies::find($id)) {
-            return redirect()->back();
-        }
+        if (!$companie = $this->service->findOne($id)) return redirect()->back();
 
         return view('/companies/edit', compact('companie'));
     }
 
-    public function update(Request $request, Companies $companie, string|int $id)
+    public function update(CompaniesStoreUpdateRequest $request, string|int $id)
     {
-        if (!$companie = Companies::find($id)) {
-            return redirect()->back();
-        }
+        $companie = $this->service->update(UpdateCompaniesDTO::makeFromRequest($request));
 
-        $companie->update($request->only([
-            'name'
-        ]));
+        if (!$companie) return redirect()->back();
+
+        return redirect()->route('companies');
+    }
+
+    public function delete(string $id)
+    {
+        $this->service->delete($id);
 
         return redirect()->route('companies');
     }
