@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/show/{id}', [companiesController::class, 'show'])->name('companies.show');
         Route::get('/edit/{id}', [companiesController::class, 'edit'])->name('companies.edit');
         Route::put('/update/{id}', [companiesController::class, 'update'])->name('companies.update');
+        Route::delete('/delete/{id}', [companiesController::class, 'delete'])->name('companies.delete');
     });
 
     Route::get('/sectors', [sectorsController::class, 'sectors']);
