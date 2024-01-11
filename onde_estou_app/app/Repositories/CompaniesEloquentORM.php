@@ -1,10 +1,12 @@
 <?php
 
+namespace App\Repositories;
 
 use App\DTO\CreateCompaniesDTO;
 use App\DTO\UpdateCompaniesDTO;
 use App\Models\Companies;
 use App\Repositories\CompaniesRepositoriesInterface;
+use stdClass;
 
 class CompaniesEloquentORM implements CompaniesRepositoriesInterface
 {
@@ -22,7 +24,7 @@ class CompaniesEloquentORM implements CompaniesRepositoriesInterface
                 }
             }
         )
-            ->all()
+            ->get()
             ->toArray();
     }
     public function findOne(string $id): stdClass|null
