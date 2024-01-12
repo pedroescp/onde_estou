@@ -14,8 +14,6 @@
                             <x-primary-button>
                                 <a href="{{ route('companies.edit', $companie->id) }}">Editar</a>
                             </x-primary-button>
-                            
-
 
                             <form action="{{ route('companies.delete', $companie->id) }}" method="post">
                                 @csrf()
@@ -23,9 +21,7 @@
                                 <button type="submit">
                                     Deletar
                                 </button>
-
                             </form>
-
                         </header>
                     </section>
                 </div>

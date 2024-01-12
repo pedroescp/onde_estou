@@ -30,9 +30,15 @@
                                     </td>
                                     <td>
                                         <x-danger-button>
-                                            <a href="{{ route('companies.delete', $companie['id']) }}">Deltar</a>
+                                            <form action="{{ route('companies.delete', $companie['id']) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit">Deletar</button>
+                                            </form>
                                         </x-danger-button>
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>
