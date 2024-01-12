@@ -26,8 +26,6 @@ class CompaniesEloquentORM implements CompaniesRepositoriesInterface
         )
             ->paginate($totalPerpage, ['*'], 'page', $page);
 
-        dd(new PaginationPresenter($result));
-
         return new PaginationPresenter($result);
     }
 

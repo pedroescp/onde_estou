@@ -8,6 +8,7 @@ class CreateCompaniesDTO
 {
     public function __construct(
         public string $name,
+        public string $status,
         public ?int $parent_id
     )
     {
@@ -18,6 +19,7 @@ class CreateCompaniesDTO
     {
         return new self(
             $request->name,
+            'A',
             $request->parent_id
         );
     }

@@ -23,7 +23,7 @@ class PaginationPresenter implements PaginationInterface
     /**
      * @return stclass[]
      */
-    public function itens(): array
+    public function items(): array
     {
         return $this->items;
     }
@@ -31,7 +31,7 @@ class PaginationPresenter implements PaginationInterface
     {
         return $this->paginator->total();
     }
-    public function isFisrtPage(): bool
+    public function isFirstPage(): bool
     {
         return $this->paginator->onFirstPage();
     }

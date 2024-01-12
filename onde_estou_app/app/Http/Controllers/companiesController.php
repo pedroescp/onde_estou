@@ -19,10 +19,13 @@ class companiesController extends Controller
     {
         $companies = $this->service->paginate(
             page: $request->get('page', 1),
-            totalPerpage:$request->get('per_page', 15),
+            totalPerpage:$request->get('per_page', 1),
             filter:$request->filter,
         );
-        return view('companies/index', compact('companies'));
+
+        $filters = ['filter' => $request->get('filter', '')];
+
+        return view('companies/index', compact('companies', 'filters'));
     }
 
     public function create(Request $request)

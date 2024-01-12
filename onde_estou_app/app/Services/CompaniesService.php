@@ -5,6 +5,7 @@ namespace App\Services;
 use App\DTO\CreateCompaniesDTO;
 use App\DTO\UpdateCompaniesDTO;
 use App\Repositories\CompaniesRepositoriesInterface;
+use App\Repositories\Interfaces\PaginationInterface;
 use stdClass;
 
 class CompaniesService
@@ -17,7 +18,7 @@ class CompaniesService
         int $page = 1,
         int $totalPerpage = 10,
         ?string $filter = null
-    ) {
+    ): PaginationInterface {
         return $this->repository->paginate(
             page: $page,
             totalPerpage: $totalPerpage,

@@ -17,7 +17,7 @@ class Companies extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'parent_id'];
+    protected $fillable = ['name', 'status', 'parent_id'];
 
     // Relacionamento com a tabela sectors
     public function sectors()

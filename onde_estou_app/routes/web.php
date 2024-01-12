@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\CompaniesStatus;
 use App\Http\Controllers\companiesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\sectorsController;
