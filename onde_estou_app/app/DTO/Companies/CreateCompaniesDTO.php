@@ -2,13 +2,14 @@
 
 namespace App\DTO\Companies;
 
+use App\Enums\CompaniesStatus;
 use App\Http\Requests\CompaniesStoreUpdateRequest;
 
 class CreateCompaniesDTO
 {
     public function __construct(
         public string $name,
-        public string $status,
+        public CompaniesStatus $status,
         public ?int $parent_id
     )
     {
@@ -19,7 +20,7 @@ class CreateCompaniesDTO
     {
         return new self(
             $request->name,
-            'A',
+            CompaniesStatus::A,
             $request->parent_id
         );
     }
