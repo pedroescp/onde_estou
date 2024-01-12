@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\DTO\CreateCompaniesDTO;
-use App\DTO\UpdateCompaniesDTO;
+use App\DTO\Companies\CreateCompaniesDTO;
+use App\DTO\Companies\UpdateCompaniesDTO;
 use App\Repositories\CompaniesRepositoriesInterface;
 use App\Repositories\Interfaces\PaginationInterface;
 use stdClass;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\CreateCompaniesDTO;
-use App\DTO\UpdateCompaniesDTO;
+use App\DTO\Companies\CreateCompaniesDTO;
+use App\DTO\Companies\UpdateCompaniesDTO;
 use App\Http\Requests\CompaniesStoreUpdateRequest;
 use App\Models\Companies;
 use App\Services\CompaniesService;
