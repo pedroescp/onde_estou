@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\DTO\CreateCompaniesDTO;
 use App\DTO\UpdateCompaniesDTO;
+use App\Repositories\Interfaces\PaginationInterface;
 use stdClass;
 
 interface CompaniesRepositoriesInterface

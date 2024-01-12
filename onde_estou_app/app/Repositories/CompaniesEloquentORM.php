@@ -6,6 +6,7 @@ use App\DTO\CreateCompaniesDTO;
 use App\DTO\UpdateCompaniesDTO;
 use App\Models\Companies;
 use App\Repositories\CompaniesRepositoriesInterface;
+use App\Repositories\Interfaces\PaginationInterface;
 use stdClass;
 
 class CompaniesEloquentORM implements CompaniesRepositoriesInterface
@@ -15,7 +16,7 @@ class CompaniesEloquentORM implements CompaniesRepositoriesInterface
     }
     public function paginate(int $page = 1, int $totalPerpage = 10, ?string $filter = null): PaginationInterface
     {
-        $teste = $this->model->where(
+        $result = $this->model->where(
             function ($query) use ($filter) {
                 if ($filter) {
                     $query->where('subject', $filter);
@@ -25,7 +26,9 @@ class CompaniesEloquentORM implements CompaniesRepositoriesInterface
         )
             ->paginate($totalPerpage, ['*'], 'page', $page);
 
-        dd($teste);
+        dd(new PaginationPresenter($result));
+
+        return new PaginationPresenter($result);
     }
 
     public function getAll(string $filter = null): array
