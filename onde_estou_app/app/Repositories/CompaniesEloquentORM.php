@@ -13,12 +13,26 @@ class CompaniesEloquentORM implements CompaniesRepositoriesInterface
     public function __construct(protected Companies $model)
     {
     }
+    public function paginate(int $page = 1, int $totalPerpage = 10, ?string $filter = null): PaginationInterface
+    {
+        $teste = $this->model->where(
+            function ($query) use ($filter) {
+                if ($filter) {
+                    $query->where('subject', $filter);
+                    //$query->orWhere('body', 'like', "%{$filter}%");
+                }
+            }
+        )
+            ->paginate($totalPerpage, ['*'], 'page', $page);
+
+        dd($teste);
+    }
 
     public function getAll(string $filter = null): array
     {
         return $this->model->where(
             function ($query) use ($filter) {
-                if($filter) {
+                if ($filter) {
                     $query->where('subject', $filter);
                     //$query->orWhere('body', 'like', "%{$filter}%");
                 }
@@ -31,7 +45,7 @@ class CompaniesEloquentORM implements CompaniesRepositoriesInterface
     {
         $companies = $this->model->find($id);
 
-        if(!$companies) return null;
+        if (!$companies) return null;
 
 
         return (object) $companies->toArray();
@@ -50,7 +64,7 @@ class CompaniesEloquentORM implements CompaniesRepositoriesInterface
     }
     public function update(UpdateCompaniesDTO $dto): stdClass|null
     {
-        if(!$companies = $this->model->find($dto->id)){
+        if (!$companies = $this->model->find($dto->id)) {
             return null;
         }
 

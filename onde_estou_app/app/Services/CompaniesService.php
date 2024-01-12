@@ -11,7 +11,18 @@ class CompaniesService
 {
     public function __construct(protected CompaniesRepositoriesInterface $repository)
     {
-        
+    }
+
+    public function paginate(
+        int $page = 1,
+        int $totalPerpage = 10,
+        ?string $filter = null
+    ) {
+        return $this->repository->paginate(
+            page: $page,
+            totalPerpage: $totalPerpage,
+            filter: $filter
+        );
     }
 
     public function getAll(string $filter = null): array

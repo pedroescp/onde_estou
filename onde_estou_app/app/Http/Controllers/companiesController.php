@@ -17,7 +17,11 @@ class companiesController extends Controller
 
     public function index(Request $request)
     {
-        $companies = $this->service->getAll($request->filter);
+        $companies = $this->service->paginate(
+            page: $request->get('page', 1),
+            totalPerpage:$request->get('per_page', 15),
+            filter:$request->filter,
+        );
         return view('companies/index', compact('companies'));
     }
 
