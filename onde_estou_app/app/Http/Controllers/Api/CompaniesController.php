@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Adapters\ApiAdapter;
 use App\DTO\Companies\CreateCompaniesDTO;
 use App\DTO\Companies\UpdateCompaniesDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompaniesStoreUpdateRequest;
 use App\Http\Resources\CompaniesResource;
 use App\Services\CompaniesService;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CompaniesController extends Controller
@@ -21,9 +23,17 @@ class CompaniesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //$companies = Companies::paginate();
+
+        $companies = $this->service->paginate(
+            page: $request->get('page', 1),
+            totalPerpage: $request->get('per_page', 3),
+            filter: $request->filter,
+        );
+
+        return ApiAdapter::toJson($companies);
     }
 
     /**
