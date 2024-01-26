@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\DTO\Companies\CreateCompaniesDTO;
+use App\DTO\Companies\UpdateCompaniesDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompaniesStoreUpdateRequest;
 use App\Http\Resources\CompaniesResource;
 use App\Services\CompaniesService;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CompaniesController extends Controller
 {
@@ -42,15 +43,31 @@ class CompaniesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        if (!$companies = $this->service->findOne($id)) {
+            return response()->json([
+                'error' => 'Not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        return new CompaniesResource($companies);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CompaniesStoreUpdateRequest $request, string $id)
     {
-        //
+        $companies = $this->service->update(
+            UpdateCompaniesDTO::makeFromRequest($request)
+        );
+
+        if (!$companies) {
+            return response()->json([
+                'error' => 'Not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        return new CompaniesResource($companies);
     }
 
     /**
@@ -58,6 +75,14 @@ class CompaniesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (!$this->service->findOne($id)) {
+            return response()->json([
+                'error' => 'Not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $this->service->delete($id);
+
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }

@@ -23,4 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     //companies
     Route::prefix('companies')->group(function () {
         Route::get('/', [CompaniesController::class, 'store'])->name('companies.store');
+        Route::get('/{id}', [CompaniesController::class, 'show'])->name('companies.show');
+        Route::delete('/{id}', [CompaniesController::class, 'destroy'])->name('companies.destroy');
+        Route::put('/{id}', [CompaniesController::class, 'update'])->name('companies.update');
     });
