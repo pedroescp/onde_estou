@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class whereamiController extends Controller
+class locationsController extends Controller
 {
     public function locations() {
         return view('Companies/list');

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class WhereAmI extends Authenticatable
+class Locations extends Authenticatable
 {
     protected $fillable = ['user_id', 'company_id', 'sector_id', 'date_time', 'return_forecast'];
 
