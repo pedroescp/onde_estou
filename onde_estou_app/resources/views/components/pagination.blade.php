@@ -4,7 +4,7 @@
         $queryParams = isset($appends) && gettype($appends) === 'array' ? '&' . http_build_query($appends) : '';
     @endphp
 
-    <nav role="navigation" aria-label="Pagination Navigation" class="flex justify-between">
+    <nav role="navigation" aria-label="Pagination Navigation" class="flex justify-center mt-4 gap-4">
         {{-- Previous Page Link --}}
         @if ($paginator->isFirstPage())
             <span
@@ -14,7 +14,7 @@
         @else
             <a href="?page={{ $paginator->getNumberPreviousPage() }}" rel="prev"
                 class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                {!! __('pagination.previous') !!}
+                {!! __('pagination.previous') !!} 
             </a>
         @endif
 
