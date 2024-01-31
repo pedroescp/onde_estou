@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
-use App\Repositories\{CompaniesEloquentORM};
-use App\Repositories\{CompaniesRepositoriesInterface};
+use App\Repositories\{
+    CompaniesEloquentORM,
+    CompaniesRepositoriesInterface,
+    LocationsEloquentORM,
+    LocationsRepositoriesInterface
+};
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +19,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             CompaniesRepositoriesInterface::class,
-            CompaniesEloquentORM::class
+            CompaniesEloquentORM::class,
+
+            LocationsRepositoriesInterface::class,
+            LocationsEloquentORM::class
         );
     }
 

@@ -1,11 +1,9 @@
 <?php
 
-use App\Enums\CompaniesStatus;
 use App\Http\Controllers\companiesController;
 use App\Http\Controllers\locationsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\sectorsController;
-use App\Http\Controllers\whereamiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,7 +34,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sectors', [sectorsController::class, 'sectors']);
 
-    Route::prefix('location')->group(function () {
+    Route::prefix('locations')->group(function () {
         Route::get('/', [locationsController::class, 'index'])->name('companies');
     });
 });
