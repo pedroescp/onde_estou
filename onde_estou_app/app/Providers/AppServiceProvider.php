@@ -19,8 +19,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             CompaniesRepositoriesInterface::class,
-            CompaniesEloquentORM::class,
+            CompaniesEloquentORM::class
+        );
 
+        $this->app->bind(
             LocationsRepositoriesInterface::class,
             LocationsEloquentORM::class
         );
