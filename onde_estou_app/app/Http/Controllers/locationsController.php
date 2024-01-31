@@ -13,7 +13,7 @@ class locationsController extends Controller
 
     public function index(Request $request)
     {
-        $location = $this->service->paginate(
+        $locations = $this->service->paginate(
             page: $request->get('page', 1),
             totalPerpage:$request->get('per_page', 3),
             filter:$request->filter,
@@ -21,8 +21,7 @@ class locationsController extends Controller
 
         $filters = ['filter' => $request->get('filter', '')];
 
-        dd($location);
-
-        return view('location/index', compact('location', 'filters'));
+        dd($locations);
+        return view('location/index', compact('locations', 'filters'));
     }
 }
