@@ -5,14 +5,14 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('onde_estou') }}">
+                    <a href="{{ route('locations') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('onde_estou')" :active="request()->routeIs('onde_estou')">
+                    <x-nav-link :href="route('locations')" :active="request()->routeIs('locations')">
                         {{ __('Inicio') }}
                     </x-nav-link>
                 </div>
@@ -80,7 +80,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('onde_estou')" :active="request()->routeIs('onde_estou')">
+            <x-responsive-nav-link :href="route('locations')" :active="request()->routeIs('locations')">
                 {{ __('Inicio') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('companies')" :active="request()->routeIs('companies')">
