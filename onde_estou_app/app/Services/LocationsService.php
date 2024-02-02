@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\DTO\Locations\CreateLocationsDTO;
+use App\DTO\Locations\UpdateLocationsDTO;
 use App\Repositories\Interfaces\PaginationInterface;
 use App\Repositories\LocationsRepositoriesInterface;
 use stdClass;
@@ -39,13 +41,13 @@ class LocationsService
         return $this->repository->delete($id);
     }
 
-    // public function create(CreateCompaniesDTO $dto): stdClass
-    // {
-    //     return $this->repository->create($dto);
-    // }
+    public function create(CreateLocationsDTO $dto): stdClass
+    {
+        return $this->repository->create($dto);
+    }
 
-    // public function update(UpdateCompaniesDTO $dto): stdClass | null
-    // {
-    //     return $this->repository->update($dto);
-    // }
+    public function update(UpdateLocationsDTO $dto): stdClass | null
+    {
+        return $this->repository->update($dto);
+    }
 }
