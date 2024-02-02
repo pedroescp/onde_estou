@@ -6,13 +6,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\sectorsController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('default');
-});
+Route::get('/', [locationsController::class, 'index'])->middleware(['auth', 'verified']);
 
-Route::get('/onde_estou', function () {
-    return view('onde_estou');
-})->middleware(['auth', 'verified'])->name('onde_estou');
+Route::get('/locations', [locationsController::class, 'index'])->name('locations');
 
 Route::middleware('auth')->group(function () {
     //Profile
@@ -32,10 +28,26 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id}', [companiesController::class, 'delete'])->name('companies.delete');
     });
 
-    Route::get('/sectors', [sectorsController::class, 'sectors']);
+    //sectors
+    Route::prefix('sectors')->group(function () {
+        Route::get('/', [sectorsController::class, 'index'])->name('sectors');
+        Route::post('/store', [sectorsController::class, 'store'])->name('sectors.store');
+        Route::get('/create', [sectorsController::class, 'create'])->name('sectors.create');
+        Route::get('/list', [sectorsController::class, 'list'])->name('sectors.list');
+        Route::get('/show/{id}', [sectorsController::class, 'show'])->name('sectors.show');
+        Route::get('/edit/{id}', [sectorsController::class, 'edit'])->name('sectors.edit');
+        Route::post('/update/{id}', [sectorsController::class, 'update'])->name('sectors.update');
+        Route::delete('/delete/{id}', [sectorsController::class, 'delete'])->name('sectors.delete');
+    });
 
     Route::prefix('locations')->group(function () {
-        Route::get('/', [locationsController::class, 'index'])->name('companies');
+        Route::post('/store', [companiesController::class, 'store'])->name('locations.store');
+        Route::get('/create', [companiesController::class, 'create'])->name('locations.create');
+        Route::get('/list', [companiesController::class, 'list'])->name('locations.list');
+        Route::get('/show/{id}', [companiesController::class, 'show'])->name('locations.show');
+        Route::get('/edit/{id}', [companiesController::class, 'edit'])->name('locations.edit');
+        Route::post('/update/{id}', [companiesController::class, 'update'])->name('locations.update');
+        Route::delete('/delete/{id}', [companiesController::class, 'delete'])->name('locations.delete');
     });
 });
 
