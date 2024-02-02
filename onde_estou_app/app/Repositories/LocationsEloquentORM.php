@@ -2,9 +2,8 @@
 
 namespace App\Repositories;
 
-use App\DTO\Companies\CreateCompaniesDTO;
-use App\DTO\Companies\UpdateCompaniesDTO;
-use App\Models\Companies;
+use App\DTO\Locations\CreateLocationsDTO;
+use App\DTO\Locations\UpdateLocationsDTO;
 use App\Models\Locations;
 use App\Repositories\LocationsRepositoriesInterface;
 use App\Repositories\Interfaces\PaginationInterface;
@@ -56,7 +55,7 @@ class LocationsEloquentORM implements LocationsRepositoriesInterface
     {
         return $this->model->findOrFail($id)->delete();
     }
-    public function create(CreateCompaniesDTO $dto): stdClass
+    public function create(CreateLocationsDTO $dto): stdClass
     {
         $companies = $this->model->create(
             (array) $dto
@@ -64,7 +63,7 @@ class LocationsEloquentORM implements LocationsRepositoriesInterface
 
         return (object) $companies->toArray();
     }
-    public function update(UpdateCompaniesDTO $dto): stdClass|null
+    public function update(UpdateLocationsDTO $dto): stdClass|null
     {
         if (!$companies = $this->model->find($dto->id)) {
             return null;
