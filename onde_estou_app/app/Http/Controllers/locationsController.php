@@ -21,7 +21,6 @@ class locationsController extends Controller
 
         $filters = ['filter' => $request->get('filter', '')];
 
-        dd($locations);
         return view('location/index', compact('locations', 'filters'));
     }
 }
