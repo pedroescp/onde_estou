@@ -25,8 +25,6 @@
                         <x-primary-button-tag-a href="{{ route('companies.create') }}">
                             Adicionar nova empresa
                         </x-primary-button-tag-a>
-
-
                     </div>
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -42,56 +40,25 @@
                             <th scope="col" class="px-6 py-3">
                                 Data
                             </th>
-                            <th scope="col" class="px-6 py-3">
-                                actions
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                teste
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                teste
-                            </th>
                         </thead>
                         <tbody>
                             @foreach ($companies->items() as $companie)
                                 <tr
-                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 clickable-row text-sm">
                                     <td class="px-6 py-4">
                                         {{ $companie->id }}
                                     </td>
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $companie->name }}
-                                    </th>
+                                    <td class="px-6 py-4 clickable-element">
+                                        <a href="{{ route('companies.show', $companie->id) }}"
+                                            class="font-bold text-white">
+                                            {{ $companie->name }}
+                                        </a>
+                                    </td>
                                     <td class="px-6 py-4">
                                         {{ getStatusCompanie($companie->status) }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $companie->created_at }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="{{ route('companies.show', $companie->id) }}"
-                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                            Detalhar
-                                        </a>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="{{ route('companies.edit', $companie->id) }}"
-                                            class="font-medium text-green-600 dark:text-green-500 hover:underline">
-                                            Editar
-                                        </a>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <form action="{{ route('companies.delete', $companie->id) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <a href="">
-                                                <button type="submit"
-                                                    class="font-medium text-red-600 dark:text-red-500 hover:underline">
-                                                    Deletar
-                                                </button>
-                                            </a>
-                                        </form>
+                                        {{ \Carbon\Carbon::parse($companie->created_at)->format('d/m/Y H:i:s') }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -103,3 +70,17 @@
         </div>
     </div>
 </x-app-layout>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Add a click event listener to rows with the "clickable-row" class
+        $('.clickable-row').click(function() {
+            // Get the URL from the "Detalhar" link in the row
+            var url = $(this).find('a').attr('href');
+
+            // Redirect the user to the specified URL
+            window.location.href = url;
+        });
+    });
+</script>

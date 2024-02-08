@@ -44,13 +44,13 @@ class CompaniesEloquentORM implements CompaniesRepositoriesInterface
     }
     public function findOne(string $id): stdClass|null
     {
-        $companies = $this->model->find($id);
+        $company = $this->model->with('sectors')->find($id);
 
-        if (!$companies) return null;
+        if (!$company) return null;
 
-
-        return (object) $companies->toArray();
+        return (object) $company->toArray();
     }
+    
     public function delete(string $id): bool
     {
         return $this->model->findOrFail($id)->delete();

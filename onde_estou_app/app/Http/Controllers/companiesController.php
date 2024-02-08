@@ -6,6 +6,7 @@ use App\DTO\Companies\CreateCompaniesDTO;
 use App\DTO\Companies\UpdateCompaniesDTO;
 use App\Http\Requests\CompaniesStoreUpdateRequest;
 use App\Models\Companies;
+use App\Models\Sector;
 use App\Services\CompaniesService;
 use Illuminate\Http\Request;
 
@@ -40,11 +41,14 @@ class companiesController extends Controller
         return redirect('/companies');
     }
 
-    public function show(string|int $id)
+    public function show(string|int $id, Request $request)
     {
         if (!$companie = $this->service->findOne($id)) return redirect()->back();
 
-        return view('/companies/show', compact('companie'));
+        //Arrumar isso depois 
+        $sectors = Sector::where('company_id', $companie->id)->get();
+
+        return view('/companies/show', compact('companie', 'sectors'));
     }
 
     public function edit(Companies $companie, string|int $id)

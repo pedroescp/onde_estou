@@ -13,8 +13,11 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Companies extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
 
+    public $timestamps = true;
+
+    use HasApiTokens, HasFactory, Notifiable;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -25,7 +28,7 @@ class Companies extends Authenticatable
     // Relacionamento com a tabela sectors
     public function sectors()
     {
-        return $this->hasMany(Sector::class);
+        return $this->hasMany(Sector::class, 'company_id');
     }
 
     public function status(): Attribute

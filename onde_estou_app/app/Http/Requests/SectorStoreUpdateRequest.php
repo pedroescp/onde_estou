@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class SectorStoreUpdateRequest extends FormRequest
 {
@@ -23,8 +22,8 @@ class SectorStoreUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|max:100|required|min:5|unique:companies',
-            'parent_id' => 'nullable|int',
+            'name' => 'string|max:100|required|min:5',
+            'company_id' => 'int',
         ];
     }
 }

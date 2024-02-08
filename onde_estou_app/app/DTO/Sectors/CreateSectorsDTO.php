@@ -1,16 +1,14 @@
 <?php
 
-namespace App\DTO\Companies;
+namespace App\DTO\Sectors;
 
-use App\Enums\CompaniesStatus;
 use App\Http\Requests\SectorStoreUpdateRequest;
 
 class CreateSectorsDTO
 {
     public function __construct(
         public string $name,
-        public CompaniesStatus $status,
-        public ?int $parent_id
+        public string $company_id,
     )
     {
         
@@ -20,8 +18,7 @@ class CreateSectorsDTO
     {
         return new self(
             $request->name,
-            CompaniesStatus::A,
-            $request->parent_id
+            $request->company_id
         );
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\Companies\CreateSectorsDTO;
+use App\DTO\Sectors\CreateSectorsDTO;
 use App\DTO\Sectors\UpdateSectorsDTO;
 use App\Http\Requests\SectorStoreUpdateRequest;
 use App\Models\Sector;
@@ -30,14 +30,16 @@ class sectorsController extends Controller
 
     public function create(Request $request)
     {
-        return view('sectors/create');
+        $company_id = $request->input('companie_id');
+        return view('sectors/create', compact('company_id'));
     }
 
     public function store(SectorStoreUpdateRequest $request)
     {
         $this->service->create(CreateSectorsDTO::makeFromRequest($request));
-
-        return redirect('/sectors');
+    
+        // Redirect to the show route with the appropriate company_id
+        return redirect()->route('companies.show', ['id' => $request->input('company_id')]);
     }
 
     public function show(string|int $id)

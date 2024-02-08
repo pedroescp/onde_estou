@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\DTO\Companies\CreateSectorsDTO;
+use App\DTO\Sectors\CreateSectorsDTO;
 use App\DTO\Sectors\UpdateSectorsDTO;
 use App\Repositories\Interfaces\PaginationInterface;
 use stdClass;
