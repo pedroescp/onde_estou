@@ -23,12 +23,7 @@ class LocationsStoreUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'int|required|unique:locations',
-            'user_id' => 'int|required|unique:locations',
-            'company_id' => 'int|required|unique:locations',
             'sector_id' => 'int|required|unique:locations',
-            'return_forecast' => 'nullable',
-
         ];
     }
 }
