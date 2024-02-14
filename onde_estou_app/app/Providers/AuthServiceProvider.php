@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Models\Locations;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +24,16 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->registerPolicies();
+
+        // Verifica se o usuário possui registros em locations
+        Auth::macro('hasLocations', function () {
+            if (Auth::check()) {
+                $userId = Auth::id();
+                $locationsDoUsuario = Locations::where('user_id', $userId)->exists();
+                return $locationsDoUsuario;
+            }
+            return false;
+        });
     }
 }
