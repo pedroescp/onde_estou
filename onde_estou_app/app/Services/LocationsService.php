@@ -36,6 +36,12 @@ class LocationsService
         return $this->repository->findOne($id);
     }
 
+    public function findByUser(string $id): stdClass|null
+    {
+        return $this->repository->findByUser($id);
+    }
+
+
     public function delete(string $id): bool
     {
         return $this->repository->delete($id);

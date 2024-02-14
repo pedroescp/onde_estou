@@ -15,7 +15,10 @@ class LocationsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        // Calcula a diferença de tempo
+        $diff = Carbon::now()->diffForHumans($this->updated_at, true);
+
+        $teste = [
             'id' => $this->id,
             'user_id' => $this->user_id,
             'company' => new CompaniesResource($this->company),
@@ -23,6 +26,9 @@ class LocationsResource extends JsonResource
             'return_forecast' => $this->return_forecast,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'updated_ago' => $diff,
         ];
+
+        return $teste;
     }
 }

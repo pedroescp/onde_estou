@@ -51,6 +51,19 @@ class LocationsEloquentORM implements LocationsRepositoriesInterface
 
         return (object) $companies->toArray();
     }
+
+    public function findByuser(string $user_id): stdClass|null
+    {
+        $location = $this->model->where('user_id', $user_id)->first();
+    
+        if (!$location) {
+            return null;
+        }
+    
+        return (object) $location->toArray();
+    }
+    
+
     public function delete(string $id): bool
     {
         return $this->model->findOrFail($id)->delete();

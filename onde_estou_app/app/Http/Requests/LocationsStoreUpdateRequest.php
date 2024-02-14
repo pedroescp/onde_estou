@@ -23,7 +23,8 @@ class LocationsStoreUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sector_id' => 'int|required|unique:locations',
+            'sector_id' => 'int|required',
+            
         ];
     }
 }

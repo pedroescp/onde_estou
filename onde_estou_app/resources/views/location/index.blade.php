@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12 px-6 lg:px-0 md:px-0">
+    <div class="py-12 px-6 lg:px-0 md:px-8">
         <div class="py-5 max-w-7xl mx-auto lg:px-8 flex flex-col sm:flex-row justify-between items-center">
 
             <!-- Barra de pesquisa -->
@@ -13,12 +13,12 @@
             </x-primary-button-tag-a>
         </div>
 
-        <div class="max-w-7xl mx-auto lg:px-8 gap-4 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
+        <div class="max-w-7xl mx-auto lg:px-8 lg:w-full gap-4 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
             @foreach ($locationsResource as $location)
                 <x-cards :location="$location" :company="$location->company" :sector="$location->sector" :user="$location->user" />
             @endforeach
         </div>
-        
+
         <div class="py-5 max-w-7xl mx-auto lg:px-8 flex justify-center">
             {{-- <x-pagination :paginator="$locations" :appends="$filters" /> --}}
         </div>

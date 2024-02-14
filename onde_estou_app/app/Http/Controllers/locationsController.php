@@ -9,8 +9,11 @@ use App\Http\Resources\LocationsResource;
 use App\Models\Locations;
 use App\Models\Sector;
 use App\Services\LocationsService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use function PHPUnit\Framework\isNull;
 
 class locationsController extends Controller
 {
@@ -35,10 +38,10 @@ class locationsController extends Controller
     {
 
         $locations = Locations::all();
-    
+
         // Instancie a Resource e passe a coleção $locations para ela
         $locationsResource = LocationsResource::collection($locations);
-    
+
         return view('location/index', compact('locationsResource'));
     }
     public function create(Request $request)
@@ -50,16 +53,29 @@ class locationsController extends Controller
 
     public function store(LocationsStoreUpdateRequest $request)
     {
-        $request->merge(['user_id' => Auth::id()]);
         $request->merge([
-            'company_id' => Sector::select('company_id')->find($request->sector_id)->value('company_id')
+            'user_id' => Auth::id(),
+            'company_id' => Sector::select('company_id')->find($request->sector_id)->value('company_id'),
         ]);
+        
 
-        $locationDTO = CreateLocationsDTO::makeFromRequest($request);
+        $existingLocation = $this->service->findByUser($request->user_id);
+
+        if ($existingLocation) {
+            $request->merge([
+                'id' => $existingLocation->id,
+                'create_at' => Carbon::now(),
+                'update_at' => Carbon::now(),
+            ]);
+
+            $this->update($request);
+        } else {
+
+            $locationDTO = CreateLocationsDTO::makeFromRequest($request);
     
-        // Passe o DTO para o método create do serviço
-        $this->service->create($locationDTO);
-    
+            $this->service->create($locationDTO);
+        }
+
         return redirect('/locations');
     }
 
@@ -79,9 +95,9 @@ class locationsController extends Controller
 
     public function update(LocationsStoreUpdateRequest $request)
     {
-        $companie = $this->service->update(UpdateLocationsDTO::makeFromRequest($request));
+        $location = $this->service->update(UpdateLocationsDTO::makeFromRequest($request));
 
-        if (!$companie) return redirect()->back();
+        if (!$location) return redirect()->back();
 
         return redirect()->route('companies');
     }

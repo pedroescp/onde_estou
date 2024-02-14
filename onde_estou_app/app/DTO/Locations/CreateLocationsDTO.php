@@ -19,8 +19,8 @@ class CreateLocationsDTO
     {
         return new self(
             $request->sector_id,
-            $request->company_id,
             $request->user_id,
+            $request->company_id,
         );
     }
 }
