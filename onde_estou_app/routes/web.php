@@ -8,13 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', [locationsController::class, 'index_auth_off'], function () {
-    return view('default');
-});
-
-Route::get('/onde_estou', [locationsController::class, 'index'], function () {
-    return view('locations');
-})->middleware(['auth', 'verified'])->name('onde_estou');
+Route::get('/', [locationsController::class, 'index'])->name('onde_estou');
 
 
 

@@ -8,9 +8,15 @@
                 placeholder="Search for items">
 
             <!-- Botão "Adicionar onde estou" -->
-            <x-primary-button-tag-a href="{{ route('locations.create') }}" class="w-full sm:w-auto">
-                Adicionar onde estou
-            </x-primary-button-tag-a>
+            @if (Auth::hasLocations())
+                <x-primary-button-tag-a href="{{ route('locations.create') }}" class="w-full sm:w-auto">
+                    Atualizar onde estou
+                </x-primary-button-tag-a>
+            @else
+                <x-primary-button-tag-a href="{{ route('locations.create') }}" class="w-full sm:w-auto">
+                    Adicionar onde estou
+                </x-primary-button-tag-a>
+            @endif
         </div>
 
         <div class="max-w-7xl mx-auto lg:px-8 lg:w-full gap-4 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
