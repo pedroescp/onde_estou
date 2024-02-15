@@ -21,7 +21,7 @@
 
         <div class="max-w-7xl mx-auto lg:px-8 lg:w-full gap-4 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
             @foreach ($locationsResource as $location)
-                <x-cards :location="$location" :company="$location->company" :sector="$location->sector" :user="$location->user" />
+                <x-cards :location="$location" :company="$location['company']" :sector="$location['sector']" :user="$location['nickname']" />
             @endforeach
         </div>
 

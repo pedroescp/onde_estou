@@ -21,26 +21,15 @@ class locationsController extends Controller
     {
     }
 
-    public function index_auth_off(Request $request)
-    {
-        $locations = $this->service->paginate(
-            page: $request->get('page', 1),
-            totalPerpage: $request->get('per_page', 3),
-            filter: $request->filter,
-        );
-
-        $filters = ['filter' => $request->get('filter', '')];
-
-        return view('default', compact('locations', 'filters'));
-    }
-
     public function index(Request $request)
     {
-
         $locations = Locations::all();
 
         // Instancie a Resource e passe a coleção $locations para ela
         $locationsResource = LocationsResource::collection($locations);
+
+        $locationsResource = $locationsResource->toArray($request);
+
 
         return view('location/index', compact('locationsResource'));
     }
@@ -57,7 +46,7 @@ class locationsController extends Controller
             'user_id' => Auth::id(),
             'company_id' => Sector::select('company_id')->find($request->sector_id)->value('company_id'),
         ]);
-        
+
 
         $existingLocation = $this->service->findByUser($request->user_id);
 
@@ -72,7 +61,7 @@ class locationsController extends Controller
         } else {
 
             $locationDTO = CreateLocationsDTO::makeFromRequest($request);
-    
+
             $this->service->create($locationDTO);
         }
 

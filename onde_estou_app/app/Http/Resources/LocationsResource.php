@@ -15,20 +15,16 @@ class LocationsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // Calcula a diferença de tempo
-        $diff = Carbon::now()->diffForHumans($this->updated_at, true);
-
-        $teste = [
+        return [
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'nickname' => $this->user->name,
             'company' => new CompaniesResource($this->company),
             'sector' => new SectorResource($this->sector),
             'return_forecast' => $this->return_forecast,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'updated_ago' => $diff,
+            'created_at' => Carbon::parse($this->created_at)->locale('pt_BR')->format('d/m/Y H:i:s'),
+            'updated_at' => Carbon::parse($this->updated_at)->locale('pt_BR')->format('d/m/Y H:i:s'),
+            'updated_ago' => 'Atualizado ' . Carbon::parse($this->updated_at)->locale('pt_BR')->diffForHumans(null, true) . ' atrás',
         ];
-
-        return $teste;
     }
 }
