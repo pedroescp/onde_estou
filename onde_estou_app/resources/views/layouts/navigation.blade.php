@@ -16,6 +16,7 @@
                         {{ __('Inicio') }}
                     </x-nav-link>
                 </div>
+
                 @auth
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('companies')" :active="request()->routeIs('companies')">
@@ -24,6 +25,21 @@
                     </div>
                 @endauth
             </div>
+
+            @guest
+                <div class="-me-2 flex items-center">
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                            {{ __('Login') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                            {{ __('Cadastrar') }}
+                        </x-nav-link>
+                    </div>
+                </div>
+            @endguest
 
             @auth
                 <!-- Settings Dropdown -->

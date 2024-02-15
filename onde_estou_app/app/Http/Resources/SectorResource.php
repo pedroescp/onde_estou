@@ -17,8 +17,7 @@ class SectorResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'company_id' => $this->company_id,
-            // Se precisar de mais campos, adicione-os aqui
+            'company' => new CompaniesResource($this->company),
         ];
     }
 }

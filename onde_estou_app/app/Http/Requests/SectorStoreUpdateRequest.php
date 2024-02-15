@@ -22,7 +22,7 @@ class SectorStoreUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|max:100|required|min:5',
+            'name' => 'string|max:100|required|min:3',
             'company_id' => 'int',
         ];
     }

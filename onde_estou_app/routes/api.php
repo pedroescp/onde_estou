@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CompaniesController;
+use App\Http\Controllers\Api\SectorsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,5 @@ Route::prefix('companies')->group(function () {
     Route::delete('/{id}', [CompaniesController::class, 'destroy'])->name('companies.destroy');
     Route::put('/{id}', [CompaniesController::class, 'update'])->name('companies.update');
 });
+
+Route::get('/sectors', [SectorsController::class, 'index']);
