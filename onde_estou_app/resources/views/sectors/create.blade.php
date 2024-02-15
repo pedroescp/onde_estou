@@ -9,7 +9,7 @@
                                 {{ __('Novo setor da empresa ') }}
                             </h2>
                             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                {{ __("Update your account's profile information and email address.") }}
+                                {{ __("Atualize as informações do perfil da sua conta e o endereço de e-mail.ddress. ") }}
                             </p>
                         </header>
 
