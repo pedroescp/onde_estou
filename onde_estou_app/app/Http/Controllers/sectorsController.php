@@ -28,17 +28,15 @@ class sectorsController extends Controller
         return view('sectors/index', compact('sectors', 'filters'));
     }
 
-    public function create(Request $request)
+    public function create(Request $request, $id)
     {
-        $company_id = $request->input('companie_id');
+        $company_id = $id;
         return view('sectors/create', compact('company_id'));
     }
 
     public function store(SectorStoreUpdateRequest $request)
     {
         $this->service->create(CreateSectorsDTO::makeFromRequest($request));
-    
-        // Redirect to the show route with the appropriate company_id
         return redirect()->route('companies.show', ['id' => $request->input('company_id')]);
     }
 
