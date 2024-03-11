@@ -6,11 +6,8 @@
                     <section>
                         <header>
                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                {{ __('Novo setor da empresa ') }}
+                                {{ __('Adicionando nome do setor ') }}
                             </h2>
-                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                {{ __("Atualize as informações do perfil da sua conta e o endereço de e-mail.ddress. ") }}
-                            </p>
                         </header>
 
                         <form method="POST" action="{{ route('sectors.store', ['company_id' => $company_id]) }}" class="mt-6 space-y-6">
@@ -25,7 +22,7 @@
                                 </div>
                                 <br>
 
-                                <x-primary-button>{{ __('Save') }}</x-primary-button>
+                                <x-primary-button>{{ __('Salvar') }}</x-primary-button>
                             </div>
                         </form>
                     </section>

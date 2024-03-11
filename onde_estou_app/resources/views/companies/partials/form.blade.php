@@ -16,6 +16,6 @@
     @endunless
     <br>
 
-    <x-primary-button>{{ __('Save') }}</x-primary-button>
+    <x-primary-button>{{ __('Salvar') }}</x-primary-button>
 
 </div>
