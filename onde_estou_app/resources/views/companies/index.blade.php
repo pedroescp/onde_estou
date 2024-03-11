@@ -52,13 +52,17 @@
                                         </td>
                                         <td class="px-6 py-4 clickable-element">
                                             <a href="{{ route('companies.show', $companie->id) }}"
-                                                class="font-bold text-white">
+                                                class="font-bold dark:text-white text-neutral-950">
                                                 {{ $companie->name }}
                                             </a>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            {{ getStatusCompanie($companie->status) }}
+                                        <td class="px-6 py-4 flex items-center">
+                                            <div
+                                                class="w-2 h-2 mr-2 rounded-full {{ getStatusCompanie($companie->status) == 'Active' ? 'bg-green-500' : 'bg-red-500' }}">
+                                            </div>
+                                            <span>{{ getStatusCompanie($companie->status) == 'Active' ? 'Ativo' : 'Inativo' }}</span>
                                         </td>
+
                                         <td class="px-6 py-4">
                                             {{ \Carbon\Carbon::parse($companie->created_at)->format('d/m/Y H:i:s') }}
                                         </td>
