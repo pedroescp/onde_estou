@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="w-full flex items-center justify-between flex-col sm:flex-row">
-                    <h1 class="text-gray-50 text-3xl"><b>{{ $companie->name }}</b></h1>
+                    <h1 class="text-gray-50 text-3xl dark:text-white text-neutral-950"><b>{{ $companie->name }}</b></h1>
                     <div class="flex flex-col sm:flex-row gap-6 mt-4 sm:mt-0">
                         <a href="{{ route('companies.edit', $companie->id) }}"
                             class="font-medium text-green-600 dark:text-green-500 hover:underline">
@@ -73,7 +73,7 @@
                                 <tr
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td class="px-6 py-4">{{ $sector['id'] }}</td>
-                                    <td class="px-6 py-4">{{ $sector['name'] }}</td>
+                                    <td class="px-6 py-4 dark:text-white text-neutral-950">{{ $sector['name'] }}</td>
                                     <td class="px-6 py-4">
                                         {{ strftime('%d/%m/%Y %H:%M:%S', strtotime($sector['created_at'])) }}
                                     </td>
