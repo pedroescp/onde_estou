@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('sectors')->group(function () {
         Route::get('/', [sectorsController::class, 'index'])->name('sectors');
         Route::post('/store', [sectorsController::class, 'store'])->name('sectors.store');
-        Route::get('/create', [sectorsController::class, 'create'])->name('sectors.create');
+        Route::get('/create/{id}', [sectorsController::class, 'create'])->name('sectors.create');
         Route::get('/list', [sectorsController::class, 'list'])->name('sectors.list');
         Route::get('/show/{id}', [sectorsController::class, 'show'])->name('sectors.show');
         Route::get('/edit/{id}', [sectorsController::class, 'edit'])->name('sectors.edit');
