@@ -20,26 +20,26 @@ Route::middleware('auth')->group(function () {
 
     //companies
     Route::prefix('companies')->group(function () {
-        Route::get('/', [companiesController::class, 'index'])->name('companies');
-        Route::post('/store', [companiesController::class, 'store'])->name('companies.store');
-        Route::get('/create', [companiesController::class, 'create'])->name('companies.create');
-        Route::get('/list', [companiesController::class, 'list'])->name('companies.list');
-        Route::get('/show/{id}', [companiesController::class, 'show'])->name('companies.show');
-        Route::get('/edit/{id}', [companiesController::class, 'edit'])->name('companies.edit');
-        Route::post('/update/{id}', [companiesController::class, 'update'])->name('companies.update');
-        Route::delete('/delete/{id}', [companiesController::class, 'delete'])->name('companies.delete');
+        Route::get('/', [companiesController::class, 'index'])->name('companies')->middleware('admin');
+        Route::post('/store', [companiesController::class, 'store'])->name('companies.store')->middleware('admin');
+        Route::get('/create', [companiesController::class, 'create'])->name('companies.create')->middleware('admin');
+        Route::get('/list', [companiesController::class, 'list'])->name('companies.list')->middleware('admin');
+        Route::get('/show/{id}', [companiesController::class, 'show'])->name('companies.show')->middleware('admin');
+        Route::get('/edit/{id}', [companiesController::class, 'edit'])->name('companies.edit')->middleware('admin');
+        Route::post('/update/{id}', [companiesController::class, 'update'])->name('companies.update')->middleware('admin');
+        Route::delete('/delete/{id}', [companiesController::class, 'delete'])->name('companies.delete')->middleware('admin');
     });
 
     //sectors
     Route::prefix('sectors')->group(function () {
-        Route::get('/', [sectorsController::class, 'index'])->name('sectors');
+        Route::get('/', [sectorsController::class, 'index'])->name('sectors')->middleware('admin');
         Route::post('/store', [sectorsController::class, 'store'])->name('sectors.store');
         Route::get('/create/{id}', [sectorsController::class, 'create'])->name('sectors.create');
         Route::get('/list', [sectorsController::class, 'list'])->name('sectors.list');
-        Route::get('/show/{id}', [sectorsController::class, 'show'])->name('sectors.show');
+        Route::get('/show/{id}', [sectorsController::class, 'show'])->name('sectors.show')->middleware('admin');
         Route::get('/edit/{id}', [sectorsController::class, 'edit'])->name('sectors.edit');
-        Route::post('/update/{id}', [sectorsController::class, 'update'])->name('sectors.update');
-        Route::delete('/delete/{id}', [sectorsController::class, 'delete'])->name('sectors.delete');
+        Route::post('/update/{id}', [sectorsController::class, 'update'])->name('sectors.update')->middleware('admin');
+        Route::delete('/delete/{id}', [sectorsController::class, 'delete'])->name('sectors.delete')->middleware('admin');
     });
 
     Route::prefix('locations')->group(function () {
