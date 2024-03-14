@@ -51,7 +51,7 @@ class sectorsController extends Controller
     {
         if (!$sectors = $this->service->findOne($id)) return redirect()->back();
 
-        return view('/sectors/edit', compact('sectors'));
+        return view('sectors/edit', compact('sectors'));
     }
 
     public function update(SectorStoreUpdateRequest $request)
@@ -60,13 +60,16 @@ class sectorsController extends Controller
 
         if (!$sectors) return redirect()->back();
 
-        return redirect()->route('sectors');
+        return redirect()->route('companies.show', ['id' => $sectors->company_id]);
     }
 
     public function delete(string $id)
     {
+        $sectors_detail = $this->service->findOne($id);
+
         $this->service->delete($id);
 
-        return redirect()->route('sectors');
+        return redirect()->route('companies.show', ['id' => $sectors_detail->company_id]);
+
     }
 }
