@@ -62,10 +62,13 @@
                                 ID
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Nome do Setor   
+                                Nome do Setor
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Data
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Ações
                             </th>
                         </thead>
                         <tbody>
@@ -76,6 +79,23 @@
                                     <td class="px-6 py-4 dark:text-white text-neutral-950">{{ $sector['name'] }}</td>
                                     <td class="px-6 py-4">
                                         {{ strftime('%d/%m/%Y %H:%M:%S', strtotime($sector['created_at'])) }}
+                                    </td>
+                                    <td class="px-6 py-4 flex flex-col sm:flex-row gap-6 mt-4 sm:mt-0">
+                                        <a href="{{ route('sectors.edit', $sector['id']) }}"
+                                            class="font-medium text-green-600 dark:text-green-500 hover:underline">
+                                            Editar
+                                        </a>
+                                        <form action="{{ route('sectors.delete', $sector['id']) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a href="">
+                                                <button type="submit"
+                                                    class="font-medium text-red-600 dark:text-red-500 hover:underline">
+                                                    Deletar setor
+                                                </button>
+                                            </a>
+                                        </form>
+
                                     </td>
                                 </tr>
                             @endforeach
