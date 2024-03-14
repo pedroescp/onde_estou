@@ -18,11 +18,15 @@
                 </div>
 
                 @auth
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('companies')" :active="request()->routeIs('companies')">
-                            {{ __('Empresas') }}
-                        </x-nav-link>
-                    </div>
+                    @if (Auth::user()->is_admin)
+                        {
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link :href="route('companies')" :active="request()->routeIs('companies')">
+                                {{ __('Empresas') }}
+                            </x-nav-link>
+                        </div>
+                        }
+                    @endif
                 @endauth
             </div>
 
@@ -63,9 +67,13 @@
 
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Perfil de usuário') }}
-                            </x-dropdown-link>
+                            @if (Auth::user()->is_admin)
+                                {
+                                <x-dropdown-link :href="route('profile.edit')">
+                                    {{ __('Perfil de usuário') }}
+                                </x-dropdown-link>
+                                }
+                            @endif
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -113,9 +121,13 @@
                     {{ __('Cadastrar') }}
                 </x-responsive-nav-link>
             @else
-                <x-responsive-nav-link :href="route('companies')" :active="request()->routeIs('companies')">
-                    {{ __('Empresas') }}
-                </x-responsive-nav-link>
+                @if (Auth::user()->is_admin)
+                    {
+                    <x-responsive-nav-link :href="route('companies')" :active="request()->routeIs('companies')">
+                        {{ __('Empresas') }}
+                    </x-responsive-nav-link>
+                    }
+                @endif
             @endguest
         </div>
 
@@ -128,9 +140,13 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Perfil de usuário') }}
-                    </x-responsive-nav-link>
+                    @if (Auth::user()->is_admin)
+                        {
+                        <x-responsive-nav-link :href="route('profile.edit')">
+                            {{ __('Perfil de usuário') }}
+                        </x-responsive-nav-link>
+                        }
+                    @endif
 
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
