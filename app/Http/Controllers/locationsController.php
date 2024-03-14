@@ -44,7 +44,7 @@ class locationsController extends Controller
     {
         $request->merge([
             'user_id' => Auth::id(),
-            'company_id' => Sector::select('company_id')->find($request->sector_id)->value('company_id'),
+            'company_id' => Sector::where('id', $request->sector_id)->value('company_id'),
         ]);
 
 
