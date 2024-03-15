@@ -29,19 +29,24 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="py-2">
-                    <div class="flex flex-col sm:flex-row flex-wrap sm:space-x-4 items-center justify-between pb-4">
-
-                        <form method="post" action="{{ route('locations.store') }}" class="mt-6 space-y-6">
+                    <div class="justify-between">
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                            {{ __('Atualizar setor de origem') }}
+                        </h2>
+                
+                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                            {{ __("Atualize o setor de origem do funcionário") }}
+                        </p>
+                    </div>
+                    <div>
+                        <form method="post" action="{{ route('users.store') }}" class="mt-6 space-y-6">
                             @csrf
                             <div>
                                 <div>
-                                    <x-input-label id="location_id" :value="__('Setor')" />
-                                    <select id="location" name="sector_id"
+                                    <x-input-label id="user_id" :value="__('Setor')" />
+                                    <select id="user" name="sector_id"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option selected disabled>{{ __('Selecione um setor') }}</option>
-                                        {{-- @foreach ($sectors as $sector)
-                                            <option value="{{ $sector->id }}">{{ $sector->name }}</option>
-                                        @endforeach --}}
                                     </select>
                                     <x-input-error class="mt-2" :messages="$errors->get('sector_id')" />
                                 </div>
@@ -61,7 +66,7 @@
                     url: '/api/sectors',
                     method: 'GET',
                     success: function(response) {
-                        $('#location').empty().append(
+                        $('#user').empty().append(
                             '<option selected disabled>{{ __('Selecione um setor') }}</option>');
 
                         response.data.forEach(function(sector) {
@@ -69,7 +74,7 @@
                             option.val(sector.sector_id);
                             option.text(sector.name + ' - ' + sector.company.name);
 
-                            $('#location').append(option);
+                            $('#user').append(option);
                         });
                     },
                     error: function(xhr, status, error) {
@@ -78,8 +83,8 @@
                 });
 
 
-                $('#location').change(function() {
-                    $('#location_id').val($(this).val())
+                $('#user').change(function() {
+                    $('#user_id').val($(this).val())
                 });
             });
         </script>

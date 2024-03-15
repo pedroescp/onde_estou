@@ -61,6 +61,7 @@ class UserController extends Controller
 
     public function update(UserStoreUpdateRequest $request)
     {
+        
         $companie = $this->service->update(UpdateUserDTO::makeFromRequest($request));
 
         if (!$companie) return redirect()->back();
