@@ -15,7 +15,7 @@ class SectorResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'sector_id' => $this->id,
             'name' => $this->name,
             'company' => new CompaniesResource($this->company),
         ];

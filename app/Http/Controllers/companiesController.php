@@ -20,7 +20,7 @@ class companiesController extends Controller
     {
         $companies = $this->service->paginate(
             page: $request->get('page', 1),
-            totalPerpage:$request->get('per_page', 3),
+            totalPerpage:$request->get('per_page', 10),
             filter:$request->filter,
         );
 

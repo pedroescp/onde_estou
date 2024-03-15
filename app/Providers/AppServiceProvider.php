@@ -8,7 +8,9 @@ use App\Repositories\{
     LocationsEloquentORM,
     LocationsRepositoriesInterface,
     SectorEloquentORM,
-    SectorsRepositoriesInterface
+    SectorsRepositoriesInterface,
+    UserEloquentORM,
+    UserRepositoriesInterface
 };
 use Illuminate\Support\ServiceProvider;
 
@@ -32,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             SectorsRepositoriesInterface::class,
             SectorEloquentORM::class,
+        );
+
+        $this->app->bind(
+            UserRepositoriesInterface::class,
+            UserEloquentORM::class,
         );
     }
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\companiesController;
 use App\Http\Controllers\locationsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\sectorsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,6 +18,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('users')->middleware('admin');
+        Route::post('/store', [UserController::class, 'store'])->name('users.store')->middleware('admin');
+        Route::get('/create', [UserController::class, 'create'])->name('users.create')->middleware('admin');
+        Route::get('/list', [UserController::class, 'list'])->name('users.list')->middleware('admin');
+        Route::get('/show/{id}', [UserController::class, 'show'])->name('users.show')->middleware('admin');
+        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit')->middleware('admin');
+        Route::post('/update/{id}', [UserController::class, 'update'])->name('users.update')->middleware('admin');
+        Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('users.delete')->middleware('admin');
+    });
 
     //companies
     Route::prefix('companies')->group(function () {

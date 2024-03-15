@@ -17,9 +17,8 @@
                             @csrf
                             <div>
                                 <div>
-                                    <x-input-label for="location" :value="__('Setor')" />
+                                    <x-input-label id="location_id" :value="__('Setor')" />
                                     <select id="location" name="sector_id"
-                                        onchange="updateSelectedSectorId(this.value)"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option selected disabled>{{ __('Selecione um setor') }}</option>
                                         {{-- @foreach ($sectors as $sector)
@@ -50,7 +49,7 @@
 
                     response.data.forEach(function(sector) {
                         var option = $('<option>');
-                        option.val(sector.id);
+                        option.val(sector.sector_id);
                         option.text(sector.name + ' - ' + sector.company.name);
 
                         $('#location').append(option);
@@ -59,6 +58,11 @@
                 error: function(xhr, status, error) {
                     console.error(error);
                 }
+            });
+
+
+            $('#location').change(function() {
+                $('#location_id').val($(this).val())
             });
         });
     </script>
