@@ -70,11 +70,9 @@
 
                         <x-slot name="content">
                             @if (Auth::user()->is_admin)
-                                {
                                 <x-dropdown-link :href="route('profile.edit')">
                                     {{ __('Perfil de usuário') }}
                                 </x-dropdown-link>
-                                }
                             @endif
 
                             <!-- Authentication -->
@@ -146,11 +144,9 @@
 
                 <div class="mt-3 space-y-1">
                     @if (Auth::user()->is_admin)
-                        {
                         <x-responsive-nav-link :href="route('profile.edit')">
                             {{ __('Perfil de usuário') }}
                         </x-responsive-nav-link>
-                        }
                     @endif
 
                     <!-- Authentication -->

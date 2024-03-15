@@ -7,6 +7,6 @@
     </div>
     <br>
 
-    <x-primary-button>{{ __('Salvar') }}</x-primary-button>
+    <x-primary-button>{{ __('Atualizar nome') }}</x-primary-button>
 
 </div>
