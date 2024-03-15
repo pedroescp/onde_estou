@@ -24,7 +24,7 @@ class UserStoreUpdateRequest extends FormRequest
     {
         return [
             'name' => 'string|max:100|required|min:5|unique:companies',
-            'parent_id' => 'nullable|int',
+            'id' => 'nullable|int',
         ];
     }
 }

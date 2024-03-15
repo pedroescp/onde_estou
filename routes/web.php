@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit')->middleware('admin');
         Route::post('/update/{id}', [UserController::class, 'update'])->name('users.update')->middleware('admin');
         Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('users.delete')->middleware('admin');
+
+        Route::post('/sector/{id}', [UserController::class, 'sector'])->name('users.sector')->middleware('admin');
+
     });
 
     //companies

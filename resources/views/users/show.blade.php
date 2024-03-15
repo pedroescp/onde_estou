@@ -39,21 +39,18 @@
                         </p>
                     </div>
                     <div>
-                        <form method="post" action="{{ route('users.store') }}" class="mt-6 space-y-6">
+                        <form id="updateSectorForm" method="post" action="{{ route('users.sector', ['id' => $user->id]) }}">
                             @csrf
+                            <input type="hidden" name="user_id" value="{{ $user->id }}">
                             <div>
-                                <div>
-                                    <x-input-label id="user_id" :value="__('Setor')" />
-                                    <select id="user" name="sector_id"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option selected disabled>{{ __('Selecione um setor') }}</option>
-                                    </select>
-                                    <x-input-error class="mt-2" :messages="$errors->get('sector_id')" />
-                                </div>
-                                <x-primary-button class="mt-5">{{ __('Atualizar setor de origem') }}</x-primary-button>
+                                <x-input-label id="user_id" :value="__('Setor')" style="display: none" />
+                                <select id="user" name="sector_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="0" selected>{{ __('Selecione o setor de origem do usuário') }}</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('sector_id')" />
                             </div>
+                            <x-primary-button id="updateSectorButton" type="submit" class="mt-6" disabled>{{ __('Atualizar setor de origem') }}</x-primary-button>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -61,30 +58,72 @@
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $.ajax({
                     url: '/api/sectors',
                     method: 'GET',
-                    success: function(response) {
+                    success: function (response) {
                         $('#user').empty().append(
-                            '<option selected disabled>{{ __('Selecione um setor') }}</option>');
+                            '<option selected disabled>{{ __('Selecione o setor de origem do usuario') }}</option>');
 
-                        response.data.forEach(function(sector) {
-                            var option = $('<option>');
-                            option.val(sector.sector_id);
-                            option.text(sector.name + ' - ' + sector.company.name);
+                        // Se houver setores retornados na resposta, use o primeiro ID encontrado
+                        if (response.data.length > 0) {
+                            response.data.forEach(function (sector) {
+                                var option = $('<option>');
+                                option.val(sector.sector_id);
+                                option.text(sector.name + ' - ' + sector.company.name);
+                                $('#user').append(option);
+                            });
+                        }
 
-                            $('#user').append(option);
-                        });
+                        // Se o ID do setor não foi definido ou for igual a 0, defina como 1
+                        var currentSectorId = {{$sectors->id ?? 1}};
+                        if (!currentSectorId || currentSectorId == 0) {
+                            currentSectorId = 1;
+                        }
+                        $("#user").val(currentSectorId);
+
+                        // Desabilite o botão de atualização do setor
+                        $('#updateSectorButton').prop('disabled', true);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error(error);
                     }
                 });
 
+                // Ative o botão de atualização quando o usuário alterar o select
+                $('#user').change(function () {
+                    $('#user_id').val($(this).val());
 
-                $('#user').change(function() {
-                    $('#user_id').val($(this).val())
+                    // Atualize a ação do formulário com o novo ID do setor
+                    var newAction = $("#updateSectorForm").attr("action").split('/');
+                    newAction.pop(); // Remove o último segmento (ID antigo)
+                    newAction.push($(this).val()); // Adiciona o novo ID do setor
+                    newAction = newAction.join('/'); // Reune os segmentos novamente
+                    $("#updateSectorForm").attr("action", newAction);
+
+                    // Crie um objeto com os dados do formulário
+                    var formData = {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        sector_id: $(this).val()
+                    };
+
+                    // Envie a requisição POST
+                    $.ajax({
+                        url: '/users/sector/{{$user->id}}',
+                        method: 'POST',
+                        data: formData,
+                        success: function (response) {
+                            // Redirecione para a página de usuários após a atualização
+                            window.location.href = '/users';
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+
+                    // Ative o botão de atualização do setor
+                    $('#updateSectorButton').prop('disabled', false);
                 });
             });
         </script>

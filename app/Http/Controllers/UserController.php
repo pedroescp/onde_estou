@@ -20,8 +20,8 @@ class UserController extends Controller
     {
         $users = $this->service->paginate(
             page: $request->get('page', 1),
-            totalPerpage:$request->get('per_page', 10),
-            filter:$request->filter,
+            totalPerpage: $request->get('per_page', 10),
+            filter: $request->filter,
         );
 
         $filters = ['filter' => $request->get('filter', '')];
@@ -41,15 +41,25 @@ class UserController extends Controller
         return redirect('/users');
     }
 
-    public function show(string|int $id, Request $request)
+    public function show($id)
     {
-        if (!$companie = $this->service->findOne($id)) return redirect()->back();
-
-        $sectors = Sector::where('company_id', $companie->id)->get();
-
         $user = User::find($id);
+        $sectors = Sector::find($user->sector_origin);
 
-        return view('users/show', compact('sectors', 'user'));
+        if (!$sectors) {
+            $firstSector = Sector::orderBy('id')->first();
+
+            if ($firstSector) {
+                $user->sector_origin = $firstSector->id;
+                $user->save();
+                $sectors = $firstSector;
+            }
+        }
+
+        return view('users/show', [
+            'user' => $user,
+            'sectors' => $sectors
+        ]);
     }
 
     public function edit(User $user, string|int $id)
@@ -61,7 +71,6 @@ class UserController extends Controller
 
     public function update(UserStoreUpdateRequest $request)
     {
-        
         $companie = $this->service->update(UpdateUserDTO::makeFromRequest($request));
 
         if (!$companie) return redirect()->back();
@@ -74,5 +83,19 @@ class UserController extends Controller
         $this->service->delete($id);
 
         return redirect()->route('users');
+    }
+
+
+    public function sector(Request $request, $sector_id)
+    {
+        $sector_id = intval($sector_id);
+        $user_id = intval($request->input('user_id'));
+
+        $user = User::findOrFail($user_id);
+
+        $user->sector_origin = $sector_id;
+        $user->save();
+
+        return redirect('/users');
     }
 }

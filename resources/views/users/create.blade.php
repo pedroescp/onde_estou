@@ -20,10 +20,10 @@
                             </p>
                         </header>
 
-                        <form method="post" action="{{ route('users.store') }}" class="mt-6 space-y-6">
+                        <form method="post" action="{{ route('users.update') }}" class="mt-6 space-y-6">
                             @csrf()
 
-                            @include('users.partials.form', ['user' => null])
+                            @include('users.partials.form')
                         </form>
                     </section>
                 </div>
