@@ -43,11 +43,11 @@ class UserEloquentORM implements UserRepositoriesInterface
     }
     public function findOne(string $id): stdClass|null
     {
-        $company = $this->model->with('sectors')->find($id);
+        $users = $this->model->with('sectors')->find($id);
 
-        if (!$company) return null;
+        if (!$users) return null;
 
-        return (object) $company->toArray();
+        return (object) $users->toArray();
     }
     
     public function delete(string $id): bool

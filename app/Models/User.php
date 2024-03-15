@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'sector_origin',
+        'is_admin',
     ];
 
     /**
@@ -43,4 +44,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function sectors()
+    {
+        return $this->hasOne(Sector::class, 'id');
+    }
 }

@@ -31,31 +31,32 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        return view('User/create');
+        return view('users/create');
     }
 
     public function store(UserStoreUpdateRequest $request)
     {
         $this->service->create(CreateUserDTO::makeFromRequest($request));
 
-        return redirect('/User');
+        return redirect('/users');
     }
 
     public function show(string|int $id, Request $request)
     {
         if (!$companie = $this->service->findOne($id)) return redirect()->back();
 
-        //Arrumar isso depois 
         $sectors = Sector::where('company_id', $companie->id)->get();
 
-        return view('/User/show', compact('companie', 'sectors'));
+        $user = User::find($id);
+
+        return view('users/show', compact('sectors', 'user'));
     }
 
-    public function edit(User $companie, string|int $id)
+    public function edit(User $user, string|int $id)
     {
-        if (!$companie = $this->service->findOne($id)) return redirect()->back();
+        if (!$user = $this->service->findOne($id)) return redirect()->back();
 
-        return view('/User/edit', compact('companie'));
+        return view('users/edit', compact('user'));
     }
 
     public function update(UserStoreUpdateRequest $request)
@@ -64,13 +65,13 @@ class UserController extends Controller
 
         if (!$companie) return redirect()->back();
 
-        return redirect()->route('User');
+        return redirect()->route('users');
     }
 
     public function delete(string $id)
     {
         $this->service->delete($id);
 
-        return redirect()->route('User');
+        return redirect()->route('users');
     }
 }
