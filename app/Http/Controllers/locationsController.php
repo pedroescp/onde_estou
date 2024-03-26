@@ -25,13 +25,17 @@ class locationsController extends Controller
     {
         $locations = Locations::all();
 
-        // Instancie a Resource e passe a coleção $locations para ela
+        //Instancie a Resource e passe a coleção $locations para ela
         $locationsResource = LocationsResource::collection($locations);
 
         $locationsResource = $locationsResource->toArray($request);
 
 
-        return view('location/index', compact('locationsResource'));
+        if (Auth::check()) {
+            return view('location/index', compact('locationsResource'));
+        } else {
+            return redirect('/login');
+        }
     }
     public function create(Request $request)
     {
@@ -90,6 +94,34 @@ class locationsController extends Controller
 
         return redirect()->route('companies');
     }
+
+    public function updateOrigin(Request $request)
+    {
+
+
+        if (is_null(Auth::user()->sector_origin)) {
+            return redirect()->route('locations');
+        }
+
+        $updateData = new UpdateLocationsDTO(
+            Auth::user()->locations->id,
+            Auth::user()->sector_origin,
+            Auth::id(),
+            Auth::user()->locations->company_id,
+        );
+
+        // Executar a atualização através do serviço
+        $location = $this->service->update($updateData);
+
+        if (!$location) {
+            // Se a atualização falhar, redirecionar de volta com mensagem de erro
+            return redirect()->back()->with('error', 'Não foi possível atualizar a localização.');
+        }
+
+        // Redirecionar para a página de locais após a atualização bem-sucedida
+        return redirect()->route('locations');
+    }
+
 
     public function delete(string $id)
     {
