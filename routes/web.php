@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/show/{id}', [locationsController::class, 'show'])->name('locations.show');
         Route::get('/edit/{id}', [locationsController::class, 'edit'])->name('locations.edit');
         Route::post('/update/{id}', [locationsController::class, 'update'])->name('locations.update');
+        Route::post('/update/sectororigin/{id}', [locationsController::class, 'updateOrigin'])->name('locations.updateOrigin');
         Route::delete('/delete/{id}', [locationsController::class, 'delete'])->name('locations.delete');
     });
     Route::get('/locations', [locationsController::class, 'index'])->name('locations');
