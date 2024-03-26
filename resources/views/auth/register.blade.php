@@ -41,7 +41,7 @@
         <div class="mt-4">
             <div>
                 <x-input-label for="location" :value="__('Setor')" />
-                <select id="location" name="sector_id" onchange="updateSelectedSectorId(this.value)"
+                <select id="sectorSelect" name="sector_id"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected disabled>{{ __('Selecione um setor') }}</option>
                 </select>
@@ -52,11 +52,11 @@
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                 href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+                {{ __('Já tenho cadastro!') }}
             </a>
 
             <x-primary-button class="ms-4">
-                {{ __('Register') }}
+                {{ __('Cadastrar') }}
             </x-primary-button>
         </div>
     </form>
@@ -67,23 +67,21 @@
 <script>
     $(document).ready(function() {
         $.ajax({
-            url: '/api/sectors',
+            url: '/api/sectors/',
             method: 'GET',
             success: function(response) {
-                $('#location').empty().append(
-                    '<option selected disabled>{{ __('Selecione um setor') }}</option>');
-
+                $('#sectorSelect').empty().append($('<option>').val('').text('Selecione um setor'));
                 response.data.forEach(function(sector) {
-                    var option = $('<option>');
-                    option.val(sector.id);
-                    option.text(sector.name + ' - ' + sector.company.name);
-
-                    $('#location').append(option);
+                    $('#sectorSelect').append($('<option>').val(sector.sector_id).text(
+                        sector.name));
                 });
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
             }
+        });
+
+        $('#sectorSelect').change(function() {
+            var selectedSectorId = $(this).val();
+            console.log(
+            selectedSectorId); // Somente para depuração, você pode remover essa linha posteriormente
         });
     });
 </script>
