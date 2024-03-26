@@ -50,4 +50,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Sector::class, 'id');
     }
+
+    
+    public function locations()
+    {
+        return $this->hasOne(Locations::class, 'user_id');
+    }
+    
 }

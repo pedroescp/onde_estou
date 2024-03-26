@@ -33,6 +33,16 @@ class SectorsController extends Controller
     }
 
     /**
+     * find company
+     */
+    public function company($id)
+    {
+        $sectors = Sector::where('company_id', $id)->get();
+
+        return SectorResource::collection($sectors);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(CompaniesStoreUpdateRequest $request)

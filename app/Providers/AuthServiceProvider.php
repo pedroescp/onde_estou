@@ -35,5 +35,14 @@ class AuthServiceProvider extends ServiceProvider
             }
             return false;
         });
+
+        Auth::macro('sector_origin', function () {
+            if (Auth::check()) {
+                $userId = Auth::id();
+                $locationsDoUsuario = Locations::where('user_id', $userId)->exists();
+                return $locationsDoUsuario;
+            }
+            return false;
+        });
     }
 }

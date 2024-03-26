@@ -37,6 +37,19 @@ class CompaniesController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function list(Request $request)
+    {
+        //$companies = Companies::paginate();
+
+        $companies = $this->service->getAll();
+
+        return $companies;
+    }
+
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(CompaniesStoreUpdateRequest $request)
